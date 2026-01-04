@@ -168,11 +168,25 @@ function openSelection() {
     const { b, c, v } = selection;
     const app = `gospellibrary://content/scriptures/bofm/${b.s}/${c}?verse=${v}#p${v}`;
     const web = `https://www.churchofjesuschrist.org/study/scriptures/bofm/${b.s}/${c}.${v}?lang=deu#p${v}`;
-    const start = Date.now();
+
+    const clearListeners = () => {
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+
+    const fallback = setTimeout(() => {
+        window.open(web, '_blank');
+        clearListeners();
+    }, 1400);
+
+    const handleVisibilityChange = () => {
+        if (document.hidden) {
+            clearTimeout(fallback);
+            clearListeners();
+        }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange, { once: false });
     window.location.href = app;
-    setTimeout(() => {
-        if (Date.now() - start < 1800) window.open(web, '_blank');
-    }, 1000);
 }
 
 function resetOverlay() {
