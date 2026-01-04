@@ -2,6 +2,24 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- 
+      REQUIRED FOR ANDROID 11+ (API 30+):
+      Allows the app to check if Gospel Library or a Browser is installed.
+    -->
+    <queries>
+        <package android:name="org.lds.ldssa" /> <!-- Gospel Library -->
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="gospellibrary" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
 
     <application
         android:name=".LiahonaApplication"
@@ -25,4 +43,4 @@
         </activity>
     </application>
 
-</manifest>
+</manifest>```
