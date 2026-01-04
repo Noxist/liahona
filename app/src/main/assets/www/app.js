@@ -169,24 +169,33 @@ function openSelection() {
     const app = `gospellibrary://content/scriptures/bofm/${b.s}/${c}?verse=${v}#p${v}`;
     const web = `https://www.churchofjesuschrist.org/study/scriptures/bofm/${b.s}/${c}.${v}?lang=deu#p${v}`;
 
-    const clearListeners = () => {
+    const openLink = (url) => {
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.rel = 'noreferrer';
+        anchor.style.display = 'none';
+        document.body.appendChild(anchor);
+        anchor.click();
+        anchor.remove();
+    };
+
+    let navigated = false;
+
+    const handleVisibilityChange = () => {
+        navigated = true;
+        clearTimeout(fallbackTimer);
         document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
 
-    const fallback = setTimeout(() => {
-        window.location.assign(web);
-        clearListeners();
+    const fallbackTimer = setTimeout(() => {
+        if (!navigated) {
+            openLink(web);
+        }
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
     }, 1200);
 
-    const handleVisibilityChange = () => {
-        if (document.hidden) {
-            clearTimeout(fallback);
-            clearListeners();
-        }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange, { once: false });
-    window.location.assign(app);
+    document.addEventListener('visibilitychange', handleVisibilityChange, { once: true });
+    openLink(app);
 }
 
 function resetOverlay() {
