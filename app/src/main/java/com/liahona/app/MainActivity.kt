@@ -11,6 +11,7 @@ import android.webkit.WebViewClient
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.liahona.app.databinding.ActivityMainBinding
+import com.liahona.app.BuildConfig
 
 class MainActivity : AppCompatActivity() {
 
