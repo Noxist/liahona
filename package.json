@@ -1,0 +1,14 @@
+{
+  "name": "liahona",
+  "version": "1.0.0",
+  "description": "Offline Liahona scripture selector packaged for Android",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "echo \"No npm build required\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "UNLICENSED",
+  "type": "commonjs"
+}
