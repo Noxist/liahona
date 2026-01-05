@@ -18,7 +18,15 @@
 <body>
     <canvas id="particle-canvas"></canvas>
 
-    <div class="header-title">Liahona</div>
+    <div class="top-bar">
+        <div class="header-title" data-i18n="app_title">Liahona</div>
+        <button id="settings-button" class="settings-button" type="button" aria-label="Einstellungen">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Zm8.64-3.48a7.99 7.99 0 0 0 .04-.52c0-.18-.01-.35-.04-.52l2.02-1.58a.5.5 0 0 0 .12-.64l-1.91-3.3a.5.5 0 0 0-.61-.22l-2.38.96a6.94 6.94 0 0 0-1.05-.61l-.36-2.54A.5.5 0 0 0 15.92 3h-3.84a.5.5 0 0 0-.5.42l-.36 2.54c-.37.17-.72.37-1.05.61l-2.38-.96a.5.5 0 0 0-.61.22L5.27 9.13a.5.5 0 0 0 .12.64l2.02 1.58c-.03.17-.04.34-.04.52 0 .18.01.35.04.52L5.39 13.9a.5.5 0 0 0-.12.64l1.91 3.3c.13.23.4.32.61.22l2.38-.96c.33.24.68.44 1.05.61l.36 2.54c.04.25.25.42.5.42h3.84c.25 0 .46-.17.5-.42l.36-2.54c.37-.17.72-.37 1.05-.61l2.38.96c.21.1.48.01.61-.22l1.91-3.3a.5.5 0 0 0-.12-.64l-2.02-1.58Z"/>
+            </svg>
+            <span class="sr-only" data-i18n="settings_title">Einstellungen</span>
+        </button>
+    </div>
 
     <div class="liahona-wrapper">
         <div class="outer-ring"></div>
@@ -31,13 +39,72 @@
         </div>
     </div>
 
-    <div id="status-text" class="status-text">Fokussieren</div>
+    <div id="status-text" class="status-text" data-i18n="status_focus">Fokussieren</div>
 
     <div id="result-overlay" class="result-overlay" aria-live="polite">
         <div id="r-book" class="book-display"></div>
         <div id="r-ref" class="ref-display"></div>
-        <button id="btn-open" class="btn-gold" type="button">Lesen</button>
-        <div id="btn-reset" class="btn-reset">Neue Stelle ziehen</div>
+        <button id="btn-open" class="btn-gold" type="button" data-i18n="btn_read">Lesen</button>
+        <div id="btn-reset" class="btn-reset" data-i18n="btn_reset">Neue Stelle ziehen</div>
+    </div>
+
+    <div id="settings-overlay" class="settings-overlay" role="dialog" aria-modal="true" aria-labelledby="settings-title" aria-hidden="true">
+        <div class="settings-panel">
+            <div class="settings-header">
+                <div id="settings-title" class="settings-heading" data-i18n="settings_title">Einstellungen</div>
+                <button id="settings-close" class="icon-button" type="button" aria-label="Schließen">×</button>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title" data-i18n="section_ui">App Sprache</div>
+                <div class="option-row">
+                    <label class="option">
+                        <input type="radio" name="ui-language" value="de">
+                        <span data-i18n="language_de">Deutsch</span>
+                    </label>
+                    <label class="option">
+                        <input type="radio" name="ui-language" value="en">
+                        <span data-i18n="language_en">English</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title" data-i18n="section_content">Inhalte wählen</div>
+                <div class="option-grid">
+                    <label class="option">
+                        <input type="checkbox" id="book-bom" value="bom">
+                        <span data-i18n="book_bom">Buch Mormon</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" id="book-ot" value="ot">
+                        <span data-i18n="book_ot">Altes Testament</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" id="book-nt" value="nt">
+                        <span data-i18n="book_nt">Neues Testament</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="section-title" data-i18n="section_languages">Inhaltssprache</div>
+                <div class="option-row">
+                    <label class="option">
+                        <input type="checkbox" id="language-de" value="de">
+                        <span data-i18n="language_de">Deutsch</span>
+                    </label>
+                    <label class="option">
+                        <input type="checkbox" id="language-en" value="en">
+                        <span data-i18n="language_en">Englisch</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="settings-actions">
+                <button id="btn-save-settings" class="btn-gold" type="button" data-i18n="btn_save">Speichern</button>
+            </div>
+        </div>
     </div>
 
     <div class="footer-space"></div>
