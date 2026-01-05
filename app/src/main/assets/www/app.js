@@ -1,20 +1,30 @@
-const DB = [
-    { n: "1. Nephi", s: "1-ne", v: [20, 24, 31, 38, 22, 6, 22, 38, 6, 22, 36, 23, 42, 30, 36, 39, 55, 25, 24, 22, 26, 31] },
-    { n: "2. Nephi", s: "2-ne", v: [32, 30, 25, 35, 34, 18, 9, 25, 54, 25, 8, 18, 32, 12, 30, 9, 25, 20, 20, 30, 37, 29, 31, 15, 30, 33, 35, 32, 14, 18, 21, 9, 15] },
-    { n: "Jakob", s: "jacob", v: [19, 35, 14, 18, 77, 13, 27] },
-    { n: "Enos", s: "enos", v: [27] },
-    { n: "Jarom", s: "jarom", v: [15] },
-    { n: "Omni", s: "omni", v: [30] },
-    { n: "Worte Mormons", s: "w-of-m", v: [18] },
-    { n: "Mosia", s: "mosiah", v: [18, 41, 27, 30, 15, 7, 33, 21, 19, 22, 29, 37, 35, 12, 31, 15, 20, 35, 29, 26, 36, 16, 39, 25, 24, 39, 37, 20, 47] },
-    { n: "Alma", s: "alma", v: [33, 38, 27, 20, 62, 8, 27, 32, 34, 32, 46, 37, 31, 29, 19, 21, 39, 43, 36, 30, 23, 35, 18, 30, 17, 37, 30, 14, 17, 60, 38, 43, 23, 41, 16, 30, 47, 15, 19, 26, 15, 31, 54, 24, 24, 41, 36, 25, 30, 40, 37, 40, 23, 58, 35, 57, 36, 41, 13, 36, 21, 52, 17] },
-    { n: "Helaman", s: "hel", v: [34, 14, 37, 26, 52, 41, 29, 28, 41, 19, 38, 26, 39, 31, 17, 25] },
-    { n: "3. Nephi", s: "3-ne", v: [30, 19, 26, 33, 26, 30, 26, 25, 22, 19, 41, 48, 34, 27, 24, 20, 25, 39, 36, 46, 29, 17, 14, 3, 6, 21, 33, 40, 9, 2] },
-    { n: "4. Nephi", s: "4-ne", v: [49] },
-    { n: "Mormon", s: "morm", v: [19, 29, 22, 23, 24, 22, 10, 41, 37] },
-    { n: "Ether", s: "eth", v: [43, 25, 28, 19, 6, 30, 27, 26, 35, 34, 23, 41, 31, 31, 34] },
-    { n: "Moroni", s: "moro", v: [4, 3, 4, 3, 2, 9, 48, 30, 26, 34] }
-];
+import { APP_LANGUAGE_SET } from './app-config.js';
+import { BOM_DE } from './data/bom-de.js';
+import { BOM_EN } from './data/bom-en.js';
+import { OT_EN } from './data/ot-en.js';
+import { NT_EN } from './data/nt-en.js';
+
+const getDatabase = () => {
+    switch (APP_LANGUAGE_SET) {
+        case 'DE_ONLY':
+            return [...BOM_DE];
+        case 'EN_ONLY':
+            return [...BOM_EN, ...OT_EN, ...NT_EN];
+        case 'ALL':
+            return [...BOM_DE, ...BOM_EN, ...OT_EN, ...NT_EN];
+        default:
+            console.warn(`Unbekannter APP_LANGUAGE_SET: ${APP_LANGUAGE_SET}, verwende DE_ONLY als Fallback.`);
+            return [...BOM_DE];
+    }
+};
+
+const DB = getDatabase();
+
+const getLanguage = (book) => {
+    if (APP_LANGUAGE_SET === 'DE_ONLY') return 'deu';
+    if (APP_LANGUAGE_SET === 'EN_ONLY') return 'eng';
+    return BOM_DE.includes(book) ? 'deu' : 'eng';
+};
 
 const canvas = document.getElementById('particle-canvas');
 const ctx = canvas.getContext('2d');
@@ -166,8 +176,10 @@ function onUp() {
 function openSelection() {
     if (!selection) return;
     const { b, c, v } = selection;
-    const app = `gospellibrary://content/scriptures/bofm/${b.s}/${c}?verse=${v}#p${v}`;
-    const web = `https://www.churchofjesuschrist.org/study/scriptures/bofm/${b.s}/${c}.${v}?lang=deu#p${v}`;
+    const collection = b.collection || 'bofm';
+    const lang = getLanguage(b);
+    const app = `gospellibrary://content/scriptures/${collection}/${b.s}/${c}?verse=${v}#p${v}`;
+    const web = `https://www.churchofjesuschrist.org/study/scriptures/${collection}/${b.s}/${c}.${v}?lang=${lang}#p${v}`;
 
     const clearListeners = () => {
         document.removeEventListener('visibilitychange', handleVisibilityChange);
