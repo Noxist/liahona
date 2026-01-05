@@ -1,0 +1,29 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">  
+  <defs>
+    <linearGradient id="gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F6E7B9;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#9B6B0F;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="bg-grad" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+      <stop offset="0%" style="stop-color:#1E293B;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#020617;stop-opacity:1" />
+    </radialGradient>
+  </defs>
+  
+  <circle cx="256" cy="256" r="256" fill="url(#bg-grad)"/>
+  
+  <circle cx="256" cy="256" r="210" fill="none" stroke="url(#gold-grad)" stroke-width="8" opacity="0.4"/>
+  
+  <circle cx="256" cy="256" r="160" fill="none" stroke="url(#gold-grad)" stroke-width="2" opacity="0.3"/>
+  
+  <g transform="translate(256, 256)">
+    <path d="M0,-140 C-20,-40 -40,-20 0,0 C40,-20 20,-40 0,-140 Z" fill="url(#gold-grad)"/>
+    <path d="M0,140 C-20,40 -40,20 0,0 C40,20 20,40 0,140 Z" fill="url(#gold-grad)" opacity="0.8"/>
+    <path d="M-100,0 C-30,-15 -15,-30 0,0 C-15,30 -30,15 -100,0 Z" fill="url(#gold-grad)" opacity="0.6"/>
+    <path d="M100,0 C30,-15 15,-30 0,0 C15,30 30,15 100,0 Z" fill="url(#gold-grad)" opacity="0.6"/>
+  </g>
+  
+  <circle cx="256" cy="256" r="24" fill="url(#gold-grad)" />
+  <circle cx="256" cy="256" r="10" fill="#020617" opacity="0.8"/>
+</svg>
